@@ -13,6 +13,7 @@ struct rect
     struct point pt2;
 };
 
+
 double dist,rect_area,dist_to_orgin,sqrt(double x);
 
 

@@ -6,6 +6,13 @@ struct point
     int x;
     int y;
 };
+// 定义结构体rect,其中的元素本身也是一个结构体
+struct rect
+{
+    struct point pt1;
+    struct point pt2;
+};
+
 
 // 定义了一个名为 make_point 的结构体函数
 struct point make_point(int x, int y)
@@ -29,15 +36,50 @@ struct point addpoint(struct point p1, struct point p2)
     return p1;
 }
 
-// 测试addpoint函数 
-int main()
+int prinrect(struct point p, struct rect r)
 {
-    struct point pt1 = make_point(60, 20);
-    struct point pt2 = make_point(15, 25);
-    struct point pt3 = addpoint(pt1, pt2);
-    printf("pt3.x = %d, pt3.y = %d\n", pt3.x, pt3.y);
+    return p.x >= r.pt1.x && p.x < r.pt2.x
+        && p.y >= r.pt1.y && p.x < r.pt2.y;
+}
+#define min(a,b) (a<b) ? (a):(b)
+#define max(a,b) (a>b) ? (a):(b)
+
+//cannorect 函数，将矩形坐标规范化
+struct rect cannorect(struct rect r)
+{
+    struct rect temp;
+
+    temp.pt1.x = min(r.pt1.x, r.pt2.x);
+    temp.pt1.y = min(r.pt1.y, r.pt2.y);
+    temp.pt2.x = max(r.pt1.x, r.pt2.x);
+    temp.pt2.y = min(r.pt1.y, r.pt2.y);
+    return temp;
+
+}
+
+// 结构体指针
+
+
+// 测试结构体指针 
+int main()
+{   
+    struct point *pp;
+    struct point origin = {60, 20}; //结构体初始化应该使用花括号{}，而不是圆括号()
+    pp = &origin;
+    printf("origin.x = %d, origin.y = %d\n", pp->x, pp->y);
     return 0;
 }
+
+
+// 测试addpoint函数 
+// int main()
+// {
+//     struct point pt1 = make_point(60, 20);
+//     struct point pt2 = make_point(15, 25);
+//     struct point pt3 = addpoint(pt1, pt2);
+//     printf("pt3.x = %d, pt3.y = %d\n", pt3.x, pt3.y);
+//     return 0;
+// }
 
 
 // 测试make_point函数
